@@ -1,0 +1,49 @@
+# Prerequisites
+*.d
+
+# Ignore .vs folder
+.vs/
+x64/
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+#*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Mountain range model is too big
+*.ply
+Physics/GDP2019_20/assets/models/Mountain_range.ply
+Mountain_range.ply
+Physics/GDP2019_20/assets/models/Mountain_range_xyz_n.ply
+Mountain_range_xyz_n.ply
+Physics/GDP2019_20/assets/models/Mountain_range_xyz_n.ply
+Physics/GDP2019_20/assets/models/Mountain_smaller_range_xyz_n.ply
+Mountain_smaller_range_xyz_n.ply
+Physics/GDP2019_20/assets/models/Mountain_smaller_range_xyz_n.ply
+Mountain_smaller2_range_xyz_n.ply
+Physics/GDP2019_20/assets/models/Mountain_smaller2_range_xyz_n.ply

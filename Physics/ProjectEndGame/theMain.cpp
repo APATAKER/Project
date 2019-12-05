@@ -1064,8 +1064,8 @@ int main(void)
 	//													   "TropicalSunnyDayFront2048.bmp", "TropicalSunnyDayBack2048.bmp", true, errorString ))
 	//{
 
-
-	if (::g_pTextureManager->CreateCubeTextureFromBMPFiles("space",
+	//first cube map
+	/*if (::g_pTextureManager->CreateCubeTextureFromBMPFiles("space",
 		"up-the-creek_rt.bmp", "up-the-creek_lf.bmp",
 		"up-the-creek_up.bmp", "up-the-creek_dn.bmp",
 		"up-the-creek_ft.bmp", "up-the-creek_bk.bmp", true, errorString))
@@ -1075,6 +1075,19 @@ int main(void)
 	else
 	{
 		std::cout << "OH NO! " << errorString << std::endl;
+	}*/
+
+	//Second cube map
+	if (::g_pTextureManager->CreateCubeTextureFromBMPFiles("space",
+		"siege_rt.bmp", "siege_lf.bmp",
+		"siege_up.bmp", "siege_dn.bmp",
+		"siege_ft.bmp", "siege_bk.bmp", true, errorString))
+	{
+		std::cout << "space skybox loaded" << std::endl;
+	}
+	else
+	{
+		std::cout << "oh no! " << errorString << std::endl;
 	}
 
 	// Sphere and cube

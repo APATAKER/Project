@@ -620,6 +620,25 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 			pEagle->setRotationXYZ(pEagle->getRotationXYZ()* rotation);
 			
 		}
+		if (key == GLFW_KEY_Z)
+		{
+			/*			if (pEagle->getAccel().y > -6.0f)
+							pEagle->setAccel(glm::vec3(0.0f, pEagle->getAccel().y - MOVESPEED, 0.0f));*/			// Move the camera -0.01f units
+							//pEagle->setRotationXYZ(glm::quat(glm::vec3(pEagle->getRotationXYZ().x + glm::radians(0.1f), pEagle->getRotationXYZ().y, pEagle->getRotationXYZ().z)));
+
+			glm::quat rotation = glm::quat(glm::vec3(0.0f, 0.0f, glm::radians(-1.0f)));
+			pEagle->setRotationXYZ(pEagle->getRotationXYZ() * rotation);
+		}
+		if (key == GLFW_KEY_C)
+		{
+			/*			if (pEagle->getAccel().y < 6.0f)
+							pEagle->setAccel(glm::vec3(0.0f, pEagle->getAccel().y + MOVESPEED, 0.0f));*/			// Move the camera +0.01f units
+							//pEagle->setRotationXYZ(glm::quat(glm::vec3(pEagle->getRotationXYZ().x - glm::radians(0.1f), pEagle->getRotationXYZ().y, pEagle->getRotationXYZ().z)));
+
+			glm::quat rotation = glm::quat(glm::vec3(0.0f, 0.0f, glm::radians(1.0f)));
+			pEagle->setRotationXYZ(pEagle->getRotationXYZ() * rotation);
+
+		}
 		//if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
 		//{
 		//	if (onGround)

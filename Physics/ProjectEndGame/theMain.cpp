@@ -316,38 +316,38 @@ void ProcessAsyncKeys(GLFWwindow* window)
 		// (so the if() treats the "1" as true...)
 
 
-		//if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		//{
-		//	//			g_CameraEye.z += cameraSpeed;
-		//	::g_pFlyCamera->MoveForward_Z(+cameraMoveSpeed);
-		//}
-		//if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)	// "backwards"
-		//{
-		//	//			g_CameraEye.z -= cameraSpeed;
-		//	::g_pFlyCamera->MoveForward_Z(-cameraMoveSpeed);
-		//}
-		//if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)	// "left"
-		//{
-		//	//			g_CameraEye.x -= cameraSpeed;
-		//	::g_pFlyCamera->MoveLeftRight_X(-cameraMoveSpeed);
-		//}
-		//if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)	// "right"
-		//{
-		//	//			g_CameraEye.x += cameraSpeed;
-		//	::g_pFlyCamera->MoveLeftRight_X(+cameraMoveSpeed);
-		//}
-		//if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)	// "up"
-		//{
-		//	::g_pFlyCamera->MoveUpDown_Y(-cameraMoveSpeed);
-		//	//			::g_pFlyCamera->Roll_CW_CCW( +cameraSpeed );
-		//}
-		//if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)	// "down"
-		//{
-		//	//			g_CameraEye.y -= cameraSpeed;
-		//	::g_pFlyCamera->MoveUpDown_Y(+cameraMoveSpeed);
-		//	//			::g_pFlyCamera->Roll_CW_CCW( -cameraSpeed );
-		//}
-		g_pFlyCamera->eye = glm::vec3( pEagle->getPositionXYZ().x, pEagle->getPositionXYZ().y, pEagle->getPositionXYZ().z - 50.0f);
+		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		{
+			//			g_CameraEye.z += cameraSpeed;
+			::g_pFlyCamera->MoveForward_Z(+cameraMoveSpeed);
+		}
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)	// "backwards"
+		{
+			//			g_CameraEye.z -= cameraSpeed;
+			::g_pFlyCamera->MoveForward_Z(-cameraMoveSpeed);
+		}
+		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)	// "left"
+		{
+			//			g_CameraEye.x -= cameraSpeed;
+			::g_pFlyCamera->MoveLeftRight_X(-cameraMoveSpeed);
+		}
+		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)	// "right"
+		{
+			//			g_CameraEye.x += cameraSpeed;
+			::g_pFlyCamera->MoveLeftRight_X(+cameraMoveSpeed);
+		}
+		if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)	// "up"
+		{
+			::g_pFlyCamera->MoveUpDown_Y(-cameraMoveSpeed);
+			//			::g_pFlyCamera->Roll_CW_CCW( +cameraSpeed );
+		}
+		if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)	// "down"
+		{
+			//			g_CameraEye.y -= cameraSpeed;
+			::g_pFlyCamera->MoveUpDown_Y(+cameraMoveSpeed);
+			//			::g_pFlyCamera->Roll_CW_CCW( -cameraSpeed );
+		}
+		//g_pFlyCamera->eye = glm::vec3( pEagle->getPositionXYZ().x, pEagle->getPositionXYZ().y, pEagle->getPositionXYZ().z - 50.0f);
 	}//if(AreAllModifiersUp(window)
 
 	// If shift is down, do the rotation camera stuff...
@@ -602,7 +602,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 				pEagle->setIsWireframe(true);
 			}
 		}
-		g_pFlyCamera->eye = glm::vec3(pEagle->getPositionXYZ().x, pEagle->getPositionXYZ().y, pEagle->getPositionXYZ().z - 50.0f);
+		//g_pFlyCamera->eye = glm::vec3(pEagle->getPositionXYZ().x, pEagle->getPositionXYZ().y, pEagle->getPositionXYZ().z - 50.0f);
 
 		// Move the camera (Q & E for up and down, along the y axis)
 		if (key == GLFW_KEY_Q)

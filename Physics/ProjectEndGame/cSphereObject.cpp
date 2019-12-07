@@ -20,6 +20,16 @@ float cSphereObject::getTextureRatio(int index)
 	return this->textureRatio[index];
 }
 
+float cSphereObject::getTransprancyValue()
+{
+	return this->transprancyValue;
+}
+
+bool cSphereObject::getIsTranspanrancy()
+{
+	return this->isTranspanrancy;
+}
+
 std::string cSphereObject::getMeshName()
 {
 	return this->_meshName;
@@ -271,6 +281,16 @@ void cSphereObject::setTexture(std::string tex, int index)
 void cSphereObject::setTextureRatio(float texRatio, int index)
 {
 	this->textureRatio[index] = texRatio;
+}
+
+void cSphereObject::setTransprancyValue(float transprancyValue)
+{
+	this->transprancyValue = transprancyValue;
+}
+
+void cSphereObject::setIsTranspanrancy(bool isTranspanrancy)
+{
+	this->isTranspanrancy = isTranspanrancy;
 }
 
 

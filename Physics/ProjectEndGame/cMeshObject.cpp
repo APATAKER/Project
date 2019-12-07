@@ -20,6 +20,16 @@ float cMeshObject::getTextureRatio(int index)
 	return this->textureRatio[index];
 }
 
+float cMeshObject::getTransprancyValue()
+{
+	return this->transprancyValue;
+}
+
+bool cMeshObject::getIsTranspanrancy()
+{
+	return this->isTranspanrancy;
+}
+
 std::string cMeshObject::getMeshName()
 {
 	return this->_meshName;
@@ -244,6 +254,17 @@ void cMeshObject::setTextureRatio(float texRatio, int index)
 {
 	this->textureRatio[index] = texRatio;
 }
+
+void cMeshObject::setTransprancyValue(float transprancyValue)
+{
+	this->transprancyValue = transprancyValue;
+}
+
+void cMeshObject::setIsTranspanrancy(bool isTranspanrancy)
+{
+	this->isTranspanrancy = isTranspanrancy;
+}
+
 
 cMeshObject::cMeshObject()
 {

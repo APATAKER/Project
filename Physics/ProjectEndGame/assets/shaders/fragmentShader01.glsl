@@ -27,6 +27,8 @@ uniform bool bIsSkyBox;
 uniform vec4 tex_0_3_ratio;
 
 
+
+
 out vec4 pixelColour;			// RGB A   (0 to 1) 
 
 // Fragment shader
@@ -108,6 +110,8 @@ void main()
 
 											
 	pixelColour = outColour;
+
+	pixelColour.a = diffuseColour.a;
 	
 //	pixelColour.rgb += vec3(0.5f, 0.5f, 0.5f);
 	

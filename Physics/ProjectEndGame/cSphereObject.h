@@ -47,6 +47,9 @@ public:
 
 	std::string getTextures(int index);
 	float getTextureRatio(int index);
+
+	float getTransprancyValue();
+	bool getIsTranspanrancy();
 	//setters
 	void setMeshName(std::string name);
 	void setFriendlyIDNumber(unsigned int IDNumber);
@@ -77,6 +80,9 @@ public:
 
 	void setTexture(std::string tex, int index);
 	void setTextureRatio(float texRatio, int index);
+
+	void setTransprancyValue(float transprancyValue);
+	void setIsTranspanrancy(bool isTranspanrancy);
 
 
 private:
@@ -111,4 +117,7 @@ private:
 
 	std::string textures[NUMBEROFTEXTURES];
 	float textureRatio[NUMBEROFTEXTURES];
+
+	float transprancyValue;
+	bool isTranspanrancy;
 };

@@ -44,6 +44,9 @@ public:
 	std::string getTextures(int index);
 	float getTextureRatio(int index);
 
+	float getTransprancyValue();
+	bool getIsTranspanrancy();
+
 	//setters
 	void setMeshName(std::string name);
 	void setFriendlyIDNumber(unsigned int IDNumber);
@@ -75,6 +78,9 @@ public:
 	void setTexture(std::string tex,int index);
 	void setTextureRatio(float texRatio,int index);
 
+	void setTransprancyValue(float transprancyValue);
+	void setIsTranspanrancy(bool isTranspanrancy);
+
 private:
 	glm::quat qRotation;
 	std::vector<glm::vec3> testPoints;
@@ -105,6 +111,9 @@ private:
 	bool _isVisible;
 	bool _disableDepthBufferTest;
 	bool _disableDepthBufferWrite;
+
+	float transprancyValue;
+	bool isTranspanrancy;
 
 	std::string textures[NUMBEROFTEXTURES];
 	float textureRatio[NUMBEROFTEXTURES];

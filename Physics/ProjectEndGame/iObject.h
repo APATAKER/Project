@@ -36,6 +36,10 @@ public:
 	virtual bool getDisableDepthBufferWrite() = 0;
 	virtual std::string getTextures(int index)=0;
 	virtual float getTextureRatio(int index)=0;
+
+	virtual float getTransprancyValue()=0;
+	virtual bool getIsTranspanrancy()=0;
+
 	//leave this one ( don't need a setter )
 	virtual unsigned int getUniqueID(void) = 0;
 	//setters
@@ -68,4 +72,7 @@ public:
 
 	virtual void setTexture(std::string tex, int index) = 0;
 	virtual void setTextureRatio(float texRatio, int index) = 0;
+
+	virtual void setTransprancyValue(float transprancyValue)=0;
+	virtual void setIsTranspanrancy(bool isTranspanrancy)=0;
 };

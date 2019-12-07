@@ -16,6 +16,14 @@ float cGameObject::getTextureRatio(int index)
 {
 	return this->textureRatio[index];
 }
+float cGameObject::getTransprancyValue()
+{
+	return this->transprancyValue;
+}
+bool cGameObject::getIsTranspanrancy()
+{
+	return this->isTranspanrancy;
+}
 unsigned int cGameObject::getFriendlyIDNumber()
 {
 	return this->_friendlyIDNumber;
@@ -263,6 +271,16 @@ void cGameObject::setTexture(std::string tex, int index)
 void cGameObject::setTextureRatio(float texRatio, int index)
 {
 	this->textureRatio[index] = texRatio;
+}
+
+void cGameObject::setTransprancyValue(float transprancyValue)
+{
+	this->transprancyValue = transprancyValue;
+}
+
+void cGameObject::setIsTranspanrancy(bool isTranspanrancy)
+{
+	this->isTranspanrancy = isTranspanrancy;
 }
 
 

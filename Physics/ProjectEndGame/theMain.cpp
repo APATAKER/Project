@@ -1146,6 +1146,7 @@ int main(void)
 	pEagle->setIsWireframe(false);
 	pEagle->setTexture("eagle.bmp", 1); 
 	pEagle->setTextureRatio(1, 1);
+	pEagle->setTransprancyValue(1.0f);
 	::g_vec_pGameObjects.push_back(pEagle);
 
 	iObject* pMountainRange = pFactory->CreateObject("mesh");
@@ -1163,6 +1164,7 @@ int main(void)
 	pMountainRange->setIsWireframe(false);
 	pMountainRange->setTexture("StoneTex_1024.bmp", 1);
 	pMountainRange->setTextureRatio(1, 1);  
+	pMountainRange->setTransprancyValue(0.5f);
 	::g_vec_pEnvironmentObjects.push_back(pMountainRange);
 
 	
@@ -1195,6 +1197,8 @@ int main(void)
 
 	glEnable(GL_DEPTH);			// Write to the depth buffer
 	glEnable(GL_DEPTH_TEST);	// Test with buffer when drawing
+
+
 
 	cPhysics* pPhsyics = new cPhysics();
 
@@ -1958,6 +1962,8 @@ void SetUpTextureBindingsForObject(
 
 void DrawObject(glm::mat4 m, iObject* pCurrentObject, GLint shaderProgID, cVAOManager* pVAOManager)
 {
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// Set the texture bindings and samplers
 //
@@ -2092,7 +2098,7 @@ void DrawObject(glm::mat4 m, iObject* pCurrentObject, GLint shaderProgID, cVAOMa
 		pCurrentObject->getObjectColourRGBA().r,
 		pCurrentObject->getObjectColourRGBA().g,
 		pCurrentObject->getObjectColourRGBA().b,
-		pCurrentObject->getObjectColourRGBA().a);	// 
+		pCurrentObject->getTransprancyValue());	// 
 
 	GLint specularColour_UL = glGetUniformLocation(shaderProgID, "specularColour");
 	glUniform4f(specularColour_UL,
@@ -2142,6 +2148,7 @@ void DrawObject(glm::mat4 m, iObject* pCurrentObject, GLint shaderProgID, cVAOMa
 	{
 		glEnable(GL_DEPTH);								// Write to depth buffer
 	}
+
 
 
 	//		glDrawArrays(GL_TRIANGLES, 0, 2844);

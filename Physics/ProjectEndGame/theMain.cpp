@@ -1165,7 +1165,7 @@ int main(void)
 	pMountainRange->setTexture("StoneTex_1024.bmp", 1);
 	pMountainRange->setTextureRatio(1, 1);  
 	pMountainRange->setTransprancyValue(0.5f);
-	::g_vec_pEnvironmentObjects.push_back(pMountainRange);
+	::g_vec_pGameObjects.push_back(pMountainRange);
 
 	
 	// Will be moved placed around the scene
@@ -1479,6 +1479,26 @@ int main(void)
 		// **************************************************
 		// **************************************************
 		// Loop to draw everything in the scene
+
+
+		// Sorting wrt to the camera eye
+		for (unsigned int i = 0; i != (::g_vec_pGameObjects.size() - 1); i++)
+		{
+			glm::vec3 objA = ::g_vec_pGameObjects[i]->getPositionXYZ();
+			for (unsigned int j = 0; j != (::g_vec_pGameObjects.size() - 1); j++)
+			{
+				
+				glm::vec3 objB = ::g_vec_pGameObjects[j]->getPositionXYZ();
+				float dis1 = glm::distance(objA, ::g_pFlyCamera->eye);
+				float dis2 = glm::distance(objB, ::g_pFlyCamera->eye);
+				if (dis1 > dis2)
+				{
+					iObject* pTempGO = ::g_vec_pGameObjects[j];
+					::g_vec_pGameObjects[j] = ::g_vec_pGameObjects[i];
+					::g_vec_pGameObjects[i] = pTempGO;
+				}
+			}
+		}
 
 		for (int index = 0; index != ::g_vec_pGameObjects.size(); index++)
 		{

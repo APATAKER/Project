@@ -91,15 +91,25 @@ void main()
 	
 	vec4 materialColour = diffuseColour;
 
-	vec3 tex1_RGB = texture( textSamp01, fUVx2.st ).rgb;
-	vec3 tex2_RGB = texture( textSamp02, fUVx2.st ).rgb;
+	vec3 tex1_RGB = texture( textSamp00, fUVx2.st ).rgb;
+	vec3 tex2_RGB = texture( textSamp01, fUVx2.st ).rgb;
+	vec3 tex3_RGB = texture( textSamp02, fUVx2.st ).rgb;
+	vec3 tex4_RGB = texture( textSamp03, fUVx2.st ).rgb;
 
+	if(tex1_RGB.r >= 0.9f)
+	{
+		discard;
+	}
 
 	float tex1_ratio = 1.0f;
-	float tex2_ratio = 0.0f; 
+	float tex2_ratio = 0.0f;
+	float tex3_ratio = 0.0f;
+	float tex4_ratio = 0.0f;
+	
 
 		vec3 texRGB =   ( tex1_ratio * tex1_RGB ) 
-				  + ( tex2_ratio * tex2_RGB );
+				  + ( tex2_ratio * tex2_RGB ) + ( tex3_ratio * tex3_RGB ) 
+				  + ( tex4_ratio * tex4_RGB );
 
 //	vec4 materialColour = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 //	vec4 specColour = vec4(0.0f,0.0f,0.0f,1.0f);// materialColour;

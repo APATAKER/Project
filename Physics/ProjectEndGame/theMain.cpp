@@ -78,8 +78,6 @@ cAABB* pCurrentAABBRight;
 cAABB* pCurrentAABBFront;
 cAABB* pCurrentAABBBack;
 
-std::vector<cAABB*> currentAABBVec;
-
 bool fileChanged = false;
 bool displayAABBs = false;
 
@@ -383,6 +381,8 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 	const float CAMERASPEED = 1.0f;
 	const float MOVESPEED = 2.0f;
 
+	iObject* pEagle = pFindObjectByFriendlyName("eagle");
+
 	if (!isShiftKeyDownByAlone(mods) && !isCtrlKeyDownByAlone(mods))
 	{
 
@@ -574,7 +574,12 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 	if (isCtrlKeyDownByAlone(mods))
 	{
 		// move the shpere
-		iObject* pEagle = pFindObjectByFriendlyName("eagle");
+
+		if (key == GLFW_KEY_R && action == GLFW_PRESS)
+		{
+			pEagle->setPositionXYZ(glm::vec3(0.0f, 20.0f, 0.0f));
+		}
+		
 		if (key == GLFW_KEY_D)
 		{
 			//pSphere->rotationXYZ -= glm::vec3(CAMERASPEED, 0.0f, 0.0f);
@@ -1022,6 +1027,12 @@ int main(void)
 									 sphereMeshInfo,
 									 shaderProgID);
 
+	sModelDrawInfo cubeMeshInfo;
+	pTheVAOManager->LoadModelIntoVAO("cube",
+		cubeMesh,		// Sphere mesh info
+		cubeMeshInfo,
+		shaderProgID);
+
 	//sModelDrawInfo safePartsMeshInfo;
 	//pTheVAOManager->LoadModelIntoVAO("safeParts",
 	//	safePartsMesh,		// Sphere mesh info
@@ -1181,16 +1192,28 @@ int main(void)
 	pDebugSphere->setInverseMass(0.0f);			// Sphere won't move
 	pDebugSphere->setIsVisible(false);
 
-	iObject* pDebugCube = pFactory->CreateObject("mesh");
-	pDebugCube->setMeshName("sphere");
+	iObject* pDebugCube = pFactory->CreateObject("sphere");
+	pDebugCube->setMeshName("cube");
 	pDebugCube->setFriendlyName("debug_cube");
 	pDebugCube->setPositionXYZ(glm::vec3(0.0f, 0.0f, 0.0f));
 	pDebugCube->setRotationXYZ(glm::vec3(0.0f, 0.0f, 0.0f));
-	pDebugCube->setScale(10.0f);
-	pDebugCube->setDebugColour(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	pDebugCube->setScale(1.0f);
+	//	pDebugSphere->objectColourRGBA = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
+	pDebugCube->setDebugColour(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 	pDebugCube->setIsWireframe(true);
 	pDebugCube->setInverseMass(0.0f);			// Sphere won't move
 	pDebugCube->setIsVisible(false);
+
+	//iObject* pDebugCube = pFactory->CreateObject("mesh");
+	//pDebugCube->setMeshName("sphere");
+	//pDebugCube->setFriendlyName("debug_cube");
+	//pDebugCube->setPositionXYZ(glm::vec3(0.0f, 0.0f, 0.0f));
+	//pDebugCube->setRotationXYZ(glm::vec3(0.0f, 0.0f, 0.0f));
+	//pDebugCube->setScale(10.0f);
+	//pDebugCube->setDebugColour(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	//pDebugCube->setIsWireframe(true);
+	//pDebugCube->setInverseMass(0.0f);			// Sphere won't move
+	//pDebugCube->setIsVisible(false);
 
 	::g_pFlyCamera = new cFlyCamera();
 	::g_pFlyCamera->eye = glm::vec3(0.0f, 80.0, -80.0);
@@ -1257,10 +1280,10 @@ int main(void)
 	//	}
 	//}
 
-	pEagle->addTestPoint(glm::vec3(-5.0f, 3.0f, 4.0f));
 	pEagle->addTestPoint(glm::vec3(5.0f, 3.0f, 4.0f));
-	pEagle->addTestPoint(glm::vec3(0.0f, 0.0f, -2.3f));
+	pEagle->addTestPoint(glm::vec3(-5.0f, 3.0f, 4.0f));
 	pEagle->addTestPoint(glm::vec3(0.0f, 2.0f, 3.0f));
+	pEagle->addTestPoint(glm::vec3(0.0f, 0.0f, -2.3f));	
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -1341,20 +1364,72 @@ int main(void)
 			::g_pFlyCamera->eye.y,
 			::g_pFlyCamera->eye.z, 1.0f);
 
+		std::vector<cAABB*> currentAABBVec;
+
 		std::vector<glm::vec3> testPointsVec = pEagle->getTestPoints();
 
+		glm::mat4 matModelLeft = glm::mat4(1.0f);
+
+		glm::mat4 translationLeft = glm::translate(glm::mat4(1.0f), pEagle->getPositionXYZ());
+
+		matModelLeft *= translationLeft;
+
+		glm::mat4 rotationLeft = glm::mat4(pEagle->getRotationXYZ());
+
+		matModelLeft *= rotationLeft;
+
+		glm::vec4 testPointInModelLeft = matModelLeft * glm::vec4(testPointsVec.at(0), 1.0f);
 		
-		unsigned long long pIDLeft = cAABB::get_ID_of_AABB_I_Might_Be_In(testPointsVec.at(0));
-		pCurrentAABBLeft = g_mapAABBs_World.begin()->second;
+		unsigned long long pIDLeft = cAABB::get_ID_of_AABB_I_Might_Be_In(glm::vec3(testPointInModelLeft));
+		pCurrentAABBLeft = g_mapAABBs_World.at(pIDLeft);
 		currentAABBVec.push_back(pCurrentAABBLeft);
-		unsigned long long pIDRight = cAABB::get_ID_of_AABB_I_Might_Be_In(testPointsVec.at(1));
-		pCurrentAABBRight = g_mapAABBs_World.begin()->second;
+
+		glm::mat4 matModelRight = glm::mat4(1.0f);
+
+		glm::mat4 translationRight = glm::translate(glm::mat4(1.0f), pEagle->getPositionXYZ());
+
+		matModelRight *= translationRight;
+
+		glm::mat4 rotationRight = glm::mat4(pEagle->getRotationXYZ());
+
+		matModelRight *= rotationRight;
+
+		glm::vec4 testPointInModelRight = matModelRight * glm::vec4(testPointsVec.at(1), 1.0f);
+
+		unsigned long long pIDRight = cAABB::get_ID_of_AABB_I_Might_Be_In(glm::vec3(testPointInModelRight));
+		pCurrentAABBRight = g_mapAABBs_World.at(pIDRight);
 		currentAABBVec.push_back(pCurrentAABBRight);
-		unsigned long long pIDFront = cAABB::get_ID_of_AABB_I_Might_Be_In(testPointsVec.at(2));
-		pCurrentAABBFront = g_mapAABBs_World.begin()->second;
+
+		glm::mat4 matModelFront = glm::mat4(1.0f);
+
+		glm::mat4 translationFront = glm::translate(glm::mat4(1.0f), pEagle->getPositionXYZ());
+
+		matModelFront *= translationFront;
+
+		glm::mat4 rotationFront = glm::mat4(pEagle->getRotationXYZ());
+
+		matModelFront *= rotationFront;
+
+		glm::vec4 testPointInModelFront = matModelFront * glm::vec4(testPointsVec.at(2), 1.0f);
+
+		unsigned long long pIDFront = cAABB::get_ID_of_AABB_I_Might_Be_In(glm::vec3(testPointInModelFront));
+		pCurrentAABBFront = g_mapAABBs_World.at(pIDFront);
 		currentAABBVec.push_back(pCurrentAABBFront);
-		unsigned long long pIDBack = cAABB::get_ID_of_AABB_I_Might_Be_In(testPointsVec.at(3));
-		pCurrentAABBBack = g_mapAABBs_World.begin()->second;
+
+		glm::mat4 matModelBack = glm::mat4(1.0f);
+
+		glm::mat4 translationBack = glm::translate(glm::mat4(1.0f), pEagle->getPositionXYZ());
+
+		matModelBack *= translationBack;
+
+		glm::mat4 rotationBack = glm::mat4(pEagle->getRotationXYZ());
+
+		matModelBack *= rotationBack;
+
+		glm::vec4 testPointInModelBack = matModelBack * glm::vec4(testPointsVec.at(3), 1.0f);
+
+		unsigned long long pIDBack = cAABB::get_ID_of_AABB_I_Might_Be_In(glm::vec3(testPointInModelBack));
+		pCurrentAABBBack = g_mapAABBs_World.at(pIDBack);
 		currentAABBVec.push_back(pCurrentAABBBack);
 		//if (pID)
 		//{
@@ -1384,7 +1459,49 @@ int main(void)
 			if (displayAABBs)
 			{
 				glm::mat4 matModel = glm::mat4(1.0f);
-				pDebugCube->setPositionXYZ(g_mapAABBs_World.find(pIDLeft)->second->getCentre());
+				pDebugCube->setPositionXYZ(pCurrentAABBLeft->getCentre());
+				pDebugCube->setScale(25.0f / 2.0f);
+				pDebugCube->setDebugColour(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+				pDebugCube->setIsWireframe(true);
+				DrawObject(matModel, pDebugCube,
+					shaderProgID, pTheVAOManager);
+			}
+		}
+
+		if (g_mapAABBs_World.find(pIDRight)->second)
+		{
+			if (displayAABBs)
+			{
+				glm::mat4 matModel = glm::mat4(1.0f);
+				pDebugCube->setPositionXYZ(pCurrentAABBRight->getCentre());
+				pDebugCube->setScale(25.0f / 2.0f);
+				pDebugCube->setDebugColour(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+				pDebugCube->setIsWireframe(true);
+				DrawObject(matModel, pDebugCube,
+					shaderProgID, pTheVAOManager);
+			}
+		}
+
+		if (g_mapAABBs_World.find(pIDFront)->second)
+		{
+			if (displayAABBs)
+			{
+				glm::mat4 matModel = glm::mat4(1.0f);
+				pDebugCube->setPositionXYZ(pCurrentAABBFront->getCentre());
+				pDebugCube->setScale(25.0f / 2.0f);
+				pDebugCube->setDebugColour(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+				pDebugCube->setIsWireframe(true);
+				DrawObject(matModel, pDebugCube,
+					shaderProgID, pTheVAOManager);
+			}
+		}
+
+		if (g_mapAABBs_World.find(pIDBack)->second)
+		{
+			if (displayAABBs)
+			{
+				glm::mat4 matModel = glm::mat4(1.0f);
+				pDebugCube->setPositionXYZ(pCurrentAABBBack->getCentre());
 				pDebugCube->setScale(25.0f / 2.0f);
 				pDebugCube->setDebugColour(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 				pDebugCube->setIsWireframe(true);
@@ -1615,23 +1732,22 @@ int main(void)
 				//// But, that's not a big problem.
 
 				//// 1. Calculate vector from centre of sphere to closest point
-				//glm::vec3 vecSphereToClosestPoint = closestPoint - pSphere->getPositionXYZ();
+				//glm::vec3 vecSphereToClosestPoint = closestPoint - pEagle->getPositionXYZ();
 
 				//// 2. Get the length of this vector
 				//float centreToContractDistance = glm::length(vecSphereToClosestPoint);
 
 				//// 3. Create a vector from closest point to radius
-				//float lengthPositionAdjustment = pSphere->get_SPHERE_radius() - centreToContractDistance;
+				//float lengthPositionAdjustment = pEagle->get_SPHERE_radius() - centreToContractDistance;
 
 				//// 4. Sphere is moving in the direction of the velocity, so 
 				////    we want to move the sphere BACK along this velocity vector
-				//glm::vec3 vecDirection = glm::normalize(pSphere->getVelocity());
+				//glm::vec3 vecDirection = glm::normalize(pEagle->getVelocity());
 
 				//glm::vec3 vecPositionAdjust = (-vecDirection) * lengthPositionAdjustment;
 
 				//// 5. Reposition sphere 
-				//pSphere->setPositionXYZ(pSphere->getPositionXYZ() + vecPositionAdjust);
-				//			pSphere->inverseMass = 0.0f;
+				//pEagle->setPositionXYZ(pEagle->getPositionXYZ() + vecPositionAdjust);
 
 							// ************************************************************************
 

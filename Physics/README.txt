@@ -1,14 +1,9 @@
-Midterm Questions:
+To move the eagle hold 'ctrl' and use the following:
 
-QUESTION 1 (Draw Objects to the screen) -> Lines 541 - 768.
+WASD: normal movement
 
-QUESTION 2 (Generate asteroids) -> Lines 911 - 965.
+Arrow Keys: Up, Down, and sideways movement
 
-QUESTION 3 (Astroid-Station collision) -> Lines 1072 - 1221.
+QE: Up and Down rotation
 
-QUESTION 4 (Shoot laser) -> Lines 1021 - 1068.
-
-EXPLOSIONS AND SHIP DAMAGE -> Lines 772 - 814.
-____________________________________________________________
-
-To activate/de-activate the laser press the 'L' button.
+ZC: Z axis rotation

@@ -1137,8 +1137,6 @@ int main(void)
 	//pSkyBoxSphere->textureRatio[0] = 1.0f;
 	pSkyBoxSphere->setPhysicsShapeType("SPHERE");
 	pSkyBoxSphere->setInverseMass(0.0f);
-
-
 	g_vec_pGameObjects.push_back(pSkyBoxSphere);
 
 	iObject* pEagle = pFactory->CreateObject("sphere");
@@ -1155,8 +1153,8 @@ int main(void)
 	pEagle->setInverseMass(1.0f);
 	pEagle->setIsVisible(true);
 	pEagle->setIsWireframe(false);
-	pEagle->setTexture("eagle.bmp", 1); 
-	pEagle->setTextureRatio(1, 1);
+	pEagle->setTexture("eagle.bmp", 0); 
+	pEagle->setTextureRatio(1, 0);
 	pEagle->setTransprancyValue(1.0f);
 	::g_vec_pGameObjects.push_back(pEagle);
 
@@ -1173,8 +1171,8 @@ int main(void)
 	pMountainRange->setInverseMass(0.0f);
 	pMountainRange->setIsVisible(true);
 	pMountainRange->setIsWireframe(false);
-	pMountainRange->setTexture("StoneTex_1024.bmp", 1);
-	pMountainRange->setTextureRatio(1, 1);  
+	pMountainRange->setTexture("StoneTex_1024.bmp", 0);
+	pMountainRange->setTextureRatio(1, 0);  
 	pMountainRange->setTransprancyValue(1.0f);
 	::g_vec_pGameObjects.push_back(pMountainRange);
 

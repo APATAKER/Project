@@ -121,7 +121,7 @@ void main()
 											
 	pixelColour = outColour;
 
-	pixelColour.a = diffuseColour.a;
+	//pixelColour.a = diffuseColour.a;
 	
 //	pixelColour.rgb += vec3(0.5f, 0.5f, 0.5f);
 	

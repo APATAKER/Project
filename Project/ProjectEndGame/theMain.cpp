@@ -1175,7 +1175,7 @@ int main(void)
 	pMountainRange->setIsWireframe(false);
 	pMountainRange->setTexture("StoneTex_1024.bmp", 1);
 	pMountainRange->setTextureRatio(1, 1);  
-	pMountainRange->setTransprancyValue(0.5f);
+	pMountainRange->setTransprancyValue(1.0f);
 	::g_vec_pGameObjects.push_back(pMountainRange);
 
 	

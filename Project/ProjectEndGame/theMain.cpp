@@ -136,6 +136,8 @@ iObject* pFindObjectByFriendlyNameMap(std::string name);
 
 //bool g_BallCollided = false;
 
+int changeObj = 0;
+
 void cursor_enter_callback(GLFWwindow* window, int entered)
 {
 	if (entered)
@@ -169,6 +171,7 @@ bool isCtrlKeyDownByAlone(int mods)
 	}
 	return false;
 }
+
 
 
 
@@ -383,38 +386,38 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
 	iObject* pEagle = pFindObjectByFriendlyName("eagle");
 
-	if (!isShiftKeyDownByAlone(mods) && !isCtrlKeyDownByAlone(mods))
+	if (!isShiftKeyDownByAlone(mods) && !isCtrlKeyDownByAlone(mods) && !isOnlyAltKeyDown(mods))
 	{
 
-		// Move the camera (A & D for left and right, along the x axis)
-		if (key == GLFW_KEY_A)
-		{
-			cameraEye.x -= CAMERASPEED;		// Move the camera -0.01f units
-		}
-		if (key == GLFW_KEY_D)
-		{
-			cameraEye.x += CAMERASPEED;		// Move the camera +0.01f units
-		}
+		//// Move the camera (A & D for left and right, along the x axis)
+		//if (key == GLFW_KEY_A)
+		//{
+		//	cameraEye.x -= CAMERASPEED;		// Move the camera -0.01f units
+		//}
+		//if (key == GLFW_KEY_D)
+		//{
+		//	cameraEye.x += CAMERASPEED;		// Move the camera +0.01f units
+		//}
 
-		// Move the camera (Q & E for up and down, along the y axis)
-		if (key == GLFW_KEY_Q)
-		{
-			cameraEye.y -= CAMERASPEED;		// Move the camera -0.01f units
-		}
-		if (key == GLFW_KEY_E)
-		{
-			cameraEye.y += CAMERASPEED;		// Move the camera +0.01f units
-		}
+		//// Move the camera (Q & E for up and down, along the y axis)
+		//if (key == GLFW_KEY_Q)
+		//{
+		//	cameraEye.y -= CAMERASPEED;		// Move the camera -0.01f units
+		//}
+		//if (key == GLFW_KEY_E)
+		//{
+		//	cameraEye.y += CAMERASPEED;		// Move the camera +0.01f units
+		//}
 
-		// Move the camera (W & S for towards and away, along the z axis)
-		if (key == GLFW_KEY_W)
-		{
-			cameraEye.z -= CAMERASPEED;		// Move the camera -0.01f units
-		}
-		if (key == GLFW_KEY_S)
-		{
-			cameraEye.z += CAMERASPEED;		// Move the camera +0.01f units
-		}
+		//// Move the camera (W & S for towards and away, along the z axis)
+		//if (key == GLFW_KEY_W)
+		//{
+		//	cameraEye.z -= CAMERASPEED;		// Move the camera -0.01f units
+		//}
+		//if (key == GLFW_KEY_S)
+		//{
+		//	cameraEye.z += CAMERASPEED;		// Move the camera +0.01f units
+		//}
 
 		if (key == GLFW_KEY_B)
 		{
@@ -881,6 +884,34 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 		//}
 	}
 
+	if (isOnlyAltKeyDown(mods))
+	{
+		if (key == GLFW_KEY_W)
+		{
+			::g_vec_pEnvironmentObjects[changeObj]->setPositionXYZ(::g_vec_pEnvironmentObjects[changeObj]->getPositionXYZ()+glm::vec3(0.0f,0.0f,10.0f));
+		}
+		if (key == GLFW_KEY_A)
+		{
+			::g_vec_pEnvironmentObjects[changeObj]->setPositionXYZ(::g_vec_pEnvironmentObjects[changeObj]->getPositionXYZ() + glm::vec3(10.0f, 0.0f, 0.0f));
+		}
+		if (key == GLFW_KEY_S)
+		{
+			::g_vec_pEnvironmentObjects[changeObj]->setPositionXYZ(::g_vec_pEnvironmentObjects[changeObj]->getPositionXYZ() + glm::vec3(0.0f, 0.0f, -10.0f));
+		}
+		if (key == GLFW_KEY_D)
+		{
+			::g_vec_pEnvironmentObjects[changeObj]->setPositionXYZ(::g_vec_pEnvironmentObjects[changeObj]->getPositionXYZ() + glm::vec3(-10.0f, 0.0f, 0.0f));
+		}
+		if (key == GLFW_KEY_Q)
+		{
+			::g_vec_pEnvironmentObjects[changeObj]->setPositionXYZ(::g_vec_pEnvironmentObjects[changeObj]->getPositionXYZ() + glm::vec3(0.0f, 10.0f, 0.0f));
+		}
+		if (key == GLFW_KEY_E)
+		{
+			::g_vec_pEnvironmentObjects[changeObj]->setPositionXYZ(::g_vec_pEnvironmentObjects[changeObj]->getPositionXYZ() + glm::vec3(0.0f, -10.0f, 0.0f));
+		}
+	}
+
 	if (isCtrlKeyDownByAlone(mods) && isShiftKeyDownByAlone(mods))
 	{
 
@@ -987,6 +1018,8 @@ int main(void)
 		std::cout << "Error: couldn't find the mountain range ply." << std::endl;
 	}
 	
+	cMesh treeMesh;
+	pTheModelLoader->LoadPlyModel("assets/models/tree_n_uv.ply",treeMesh);
 
 	cMesh cubeMesh;
 	pTheModelLoader->LoadPlyModel("assets/models/Cube_1_Unit_from_origin_XYZ_uv.ply", cubeMesh);
@@ -1033,6 +1066,9 @@ int main(void)
 		cubeMeshInfo,
 		shaderProgID);
 
+	sModelDrawInfo treeMeshInfo;
+	pTheVAOManager->LoadModelIntoVAO("tree", treeMesh, treeMeshInfo, shaderProgID);
+
 	//sModelDrawInfo safePartsMeshInfo;
 	//pTheVAOManager->LoadModelIntoVAO("safeParts",
 	//	safePartsMesh,		// Sphere mesh info
@@ -1069,6 +1105,7 @@ int main(void)
 	::g_pTextureManager->Create2DTextureFromBMPFile("sandTexture_512.bmp", true);
 
 	::g_pTextureManager->Create2DTextureFromBMPFile("eagle.bmp", true);
+	::g_pTextureManager->Create2DTextureFromBMPFile("tree_texture.bmp", true);
 
 	//Cube Maps loaded here
 	::g_pTextureManager->SetBasePath("assets/textures/cubemaps/");
@@ -1157,6 +1194,25 @@ int main(void)
 	pEagle->setTextureRatio(1, 0);
 	pEagle->setTransprancyValue(1.0f);
 	::g_vec_pGameObjects.push_back(pEagle);
+
+	iObject* pTree = pFactory->CreateObject("mesh");
+	pTree->setMeshName("tree");
+	pTree->setFriendlyName("tree1");	// We use to search 
+	pTree->setPositionXYZ(glm::vec3(100.0f, -20.0f, 320.0f));
+	pTree->setRotationXYZ(glm::quat(glm::vec3(0.0f, 0.0f, 0.0f)));
+	pTree->setScale(1.0f);
+	pTree->setObjectColourRGBA(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	//pSphere->setDebugColour(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	pTree->setVelocity(glm::vec3(0.0f, 0.0f, 0.0f));
+	pTree->setAccel(glm::vec3(0.0f, 0.0f, 0.0f));
+	pTree->set_SPHERE_radius(1.0f);
+	pTree->setInverseMass(0.0f);
+	pTree->setIsVisible(true);
+	pTree->setIsWireframe(false);
+	pTree->setTexture("tree_texture.bmp", 0);
+	pTree->setTextureRatio(1, 0);
+	pTree->setTransprancyValue(1.0f);
+	::g_vec_pEnvironmentObjects.push_back(pTree);
 
 	iObject* pMountainRange = pFactory->CreateObject("mesh");
 	pMountainRange->setMeshName("mountainRange");
@@ -1282,6 +1338,8 @@ int main(void)
 	pEagle->addTestPoint(glm::vec3(-5.0f, 3.0f, 4.0f));
 	pEagle->addTestPoint(glm::vec3(0.0f, 2.0f, 3.0f));
 	pEagle->addTestPoint(glm::vec3(0.0f, 0.0f, -2.3f));	
+
+	::g_pFlyCamera->eye = glm::vec3(6, 30, -170);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -1431,24 +1489,24 @@ int main(void)
 		currentAABBVec.push_back(pCurrentAABBBack);
 		//if (pID)
 		//{
-		//	std::stringstream ssTitle;
-		//	ssTitle
-		//		<< "The sphere is at: "
-		//		<< pEagle->getPositionXYZ().x << ", "
-		//		<< pEagle->getPositionXYZ().y << ", "
-		//		<< pEagle->getPositionXYZ().z << ", "
-		//		<< "Acceleration is: "
-		//		<< pEagle->getAccel().x << ", "
-		//		<< pEagle->getAccel().y << ", "
-		//		<< pEagle->getAccel().z << ", "
-		//		<< "Velocity is: "
-		//		<< pEagle->getVelocity().x << ", "
-		//		<< pEagle->getVelocity().y << ", "
-		//		<< pEagle->getVelocity().z << ", ";
-		//		//<< " total AABBs: " << g_mapAABBs_World.size()
-		//		//<< "   and is inside AABB: " << pID
-		//		//<< " which has " << ::g_mapAABBs_World.find(pID)->second->vecTriangles.size() << std::endl;
-		//	glfwSetWindowTitle(window, ssTitle.str().c_str());
+			std::stringstream ssTitle;
+			ssTitle
+				<< "The Tree is at: "
+				<< pTree->getPositionXYZ().x << ", "
+				<< pTree->getPositionXYZ().y << ", "
+				<< pTree->getPositionXYZ().z << ", "
+				<< "camera is: "
+				<< ::g_pFlyCamera->eye.x << ", "
+				<< ::g_pFlyCamera->eye.y << ", "
+				<< ::g_pFlyCamera->eye.z << ", "
+				<< "Velocity is: "
+				<< pTree->getVelocity().x << ", "
+				<< pTree->getVelocity().y << ", "
+				<< pTree->getVelocity().z << ", ";
+				//<< " total AABBs: " << g_mapAABBs_World.size()
+				//<< "   and is inside AABB: " << pID
+				//<< " which has " << ::g_mapAABBs_World.find(pID)->second->vecTriangles.size() << std::endl;
+			glfwSetWindowTitle(window, ssTitle.str().c_str());
 		//	pCurrentAABB = g_mapAABBs_World.find(pID)->second;
 		//}
 

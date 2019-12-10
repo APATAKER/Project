@@ -146,12 +146,14 @@
     <ClCompile Include="C24BitBMPpixel.cpp" />
     <ClCompile Include="cBasicTextureManager.cpp" />
     <ClCompile Include="cBigShooter.cpp" />
+    <ClCompile Include="cCommandGroup.cpp" />
     <ClCompile Include="cFlyCamera.cpp" />
     <ClCompile Include="cGameObject.cpp" />
     <ClCompile Include="cLight.cpp" />
     <ClCompile Include="cLightImp.cpp" />
     <ClCompile Include="cMeshObject.cpp" />
     <ClCompile Include="cModelLoader.cpp" />
+    <ClCompile Include="cMoveTo_Start_End_Time.cpp" />
     <ClCompile Include="cObjectFactory.cpp" />
     <ClCompile Include="cPhysics.cpp" />
     <ClCompile Include="cPhysics_Ericson.cpp" />
@@ -183,6 +185,7 @@
     <ClInclude Include="C24BitBMPpixel.h" />
     <ClInclude Include="cBasicTextureManager.h" />
     <ClInclude Include="cBigShooter.h" />
+    <ClInclude Include="cCommandGroup.h" />
     <ClInclude Include="cFlyCamera.h" />
     <ClInclude Include="cGameObject.h" />
     <ClInclude Include="cLight.h" />
@@ -190,6 +193,7 @@
     <ClInclude Include="cMesh.h" />
     <ClInclude Include="cMeshObject.h" />
     <ClInclude Include="cModelLoader.h" />
+    <ClInclude Include="cMoveTo_Start_End_Time.h" />
     <ClInclude Include="cObjectFactory.h" />
     <ClInclude Include="cPhysics.h" />
     <ClInclude Include="cShaderManager.h" />
@@ -205,6 +209,7 @@
     <ClInclude Include="DebugRenderer\COpenGLError.h" />
     <ClInclude Include="DebugRenderer\iDebugRenderer.h" />
     <ClInclude Include="GLCommon.h" />
+    <ClInclude Include="iCommand.h" />
     <ClInclude Include="iMessageInterface.h" />
     <ClInclude Include="iObject.h" />
     <ClInclude Include="iObjectBuilder.h" />

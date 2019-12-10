@@ -5,7 +5,7 @@ class cCommandGroup : public iCommand
 {
 public: 
 	cCommandGroup();
-	virtual void SetGameObject(cGameObject* pGO);
+	virtual void SetGameObject(iObject* pGO);
 	virtual void Init(std::vector<sPair> vecDetails);
 	virtual void Update(double deltaTime);
 	virtual bool IsDone(void);

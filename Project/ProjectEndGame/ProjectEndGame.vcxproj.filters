@@ -46,6 +46,9 @@
     <Filter Include="Camera">
       <UniqueIdentifier>{683b20d8-5a76-413b-8343-5bde62fb8096}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Commands">
+      <UniqueIdentifier>{9c622a7e-d2a3-44d0-a7b4-238752271abb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="theMain.cpp">
@@ -140,6 +143,12 @@
     </ClCompile>
     <ClCompile Include="cFlyCamera.cpp">
       <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="cCommandGroup.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="cMoveTo_Start_End_Time.cpp">
+      <Filter>Commands</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -250,6 +259,15 @@
     </ClInclude>
     <ClInclude Include="cFlyCamera.h">
       <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="cCommandGroup.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="iCommand.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="cMoveTo_Start_End_Time.h">
+      <Filter>Commands</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

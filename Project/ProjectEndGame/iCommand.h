@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "cGameObject.h"
+#include "cObjectFactory.h"
 #include <glm/glm.hpp>
 #include <glm/vec4.hpp>
 
@@ -38,7 +39,7 @@ class iCommand
 {
 public:
 	virtual ~iCommand() {};
-	virtual void SetGameObject( cGameObject* pGO ) = 0;
+	virtual void SetGameObject( iObject* pGO ) = 0;
 	virtual void Init( std::vector<sPair> vecDetails ) = 0;
 	virtual void Update( double deltaTime ) = 0;
 	virtual bool IsDone(void) = 0;

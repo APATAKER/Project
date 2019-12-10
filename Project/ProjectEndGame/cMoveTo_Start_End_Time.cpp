@@ -20,7 +20,7 @@ void cMoveTo_Start_End_Time::Init(std::vector<sPair> vecDetails)
 	return;
 }
 
-void cMoveTo_Start_End_Time::SetGameObject(cGameObject* pGO)
+void cMoveTo_Start_End_Time::SetGameObject(iObject* pGO)
 {
 	this->m_pTheGO = pGO;
 	return;
@@ -31,14 +31,14 @@ void cMoveTo_Start_End_Time::Update(double deltaTime)
 	glm::vec3 deltaStep = this->m_velocity * (float)deltaTime; 
 
 	// This could be done in the physics engine... 
-	this->m_pTheGO->positionXYZ += deltaStep;
+	this->m_pTheGO->getPositionXYZ() += deltaStep;
 
 	return;
 }
 
 bool cMoveTo_Start_End_Time::IsDone(void)
 {
-	float distance = glm::distance( this->m_pTheGO->positionXYZ, 
+	float distance = glm::distance( this->m_pTheGO->getPositionXYZ(), 
 								    this->m_startPosition );
 
 	if ( distance >= this->m_totalDistance )

@@ -1,5 +1,6 @@
 #pragma once
 #include "iCommand.h"
+#include "cObjectFactory.h"
 
 class cMoveTo_Start_End_Time : public iCommand
 {
@@ -9,7 +10,7 @@ public:
 	// - End location (vec3)
 	// - Number of seconds to move (x)
 	virtual void Init(std::vector<sPair> vecDetails);
-	virtual void SetGameObject(cGameObject* pGO);
+	virtual void SetGameObject(iObject* pGO);
 	virtual void Update(double deltaTime);
 	virtual bool IsDone(void);
 
@@ -23,7 +24,7 @@ public:
 private:
 	std::string m_Name;
 
-	cGameObject* m_pTheGO;
+	iObject* m_pTheGO;
 
 	glm::vec3 m_startPosition;
 	glm::vec3 m_endPosition;

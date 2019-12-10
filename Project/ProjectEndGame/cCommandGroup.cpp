@@ -97,7 +97,7 @@ void cCommandGroup::AddCommandsParallel(std::vector<iCommand*> vec_pCommands)
 	return;
 }
 
-void cCommandGroup::SetGameObject(cGameObject* pGO)
+void cCommandGroup::SetGameObject(iObject* pGO)
 {
 	return;
 }

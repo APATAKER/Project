@@ -48,6 +48,10 @@
 // Adding fly Camera
 #include "cFlyCamera.h"
 
+// Adding Commands
+#include "cCommandGroup.h"
+#include "cMoveTo_Start_End_Time.h"
+
 cBasicTextureManager* g_pTextureManager = NULL;
 cFlyCamera* g_pFlyCamera = NULL;
 
@@ -1274,6 +1278,29 @@ int main(void)
 
 	glEnable(GL_DEPTH);			// Write to the depth buffer
 	glEnable(GL_DEPTH_TEST);	// Test with buffer when drawing
+
+
+	iCommand* pScene = new cCommandGroup();
+
+	iObject* pEagleTocommand = pFindObjectByFriendlyName("eagle");
+
+
+	iCommand* pMoveTo = new cMoveTo_Start_End_Time();
+	pMoveTo->SetGameObject(pEagleTocommand);
+	pMoveTo->setName("Move to");
+
+	sPair From;		From.numData = glm::vec4(pEagleTocommand->getPositionXYZ(), 1.0f);
+	sPair To;		To.numData = glm::vec4(-50.0f, 25.0f, -15.5f, 1.0f);
+	sPair Speed;	Speed.numData.x = 5.0f;		// 1 unit per second
+
+	std::vector<sPair> vecParams;
+
+	vecParams.push_back(From);
+	vecParams.push_back(To);
+	vecParams.push_back(Speed);
+	pMoveTo->Init(vecParams);
+
+	pScene->AddCommandSerial(pMoveTo);
 
 
 

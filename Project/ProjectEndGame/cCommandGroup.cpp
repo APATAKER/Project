@@ -17,13 +17,12 @@ void cCommandGroup::Init(std::vector<sPair> vecDetails)
 void cCommandGroup::Update(double deltaTime)
 {
 	// For serial commands, run the "next" command until it's done.
-	if ( ! this->vecSerial.empty() )
+	if (!this->vecSerial.empty())
 	{
 		iCommand* pCurrent = *this->vecSerial.begin();
+		std::cout << pCurrent->getName() << std::endl;
 
-//		std::cout << pCurrent->getName() << std::endl;
-
-		if ( !pCurrent->IsDone())
+		if (!pCurrent->IsDone())
 		{
 			pCurrent->Update(deltaTime);
 		}
@@ -31,19 +30,19 @@ void cCommandGroup::Update(double deltaTime)
 		{
 			delete pCurrent;
 			// remove this command from the vector
-			this->vecSerial.erase( this->vecSerial.begin() );
+			this->vecSerial.erase(this->vecSerial.begin());
 		}
 
 	}
 
 	// parallel  : run Update on ALL the parallel commands. 
 	//             ONLY IF THEY RETURN FALSE on IsDone();
-	for ( std::vector< iCommand* >::iterator itCommand = this->vecParallel.begin(); 
-		  itCommand != this->vecParallel.end(); itCommand++ )
+	for (std::vector< iCommand* >::iterator itCommand = this->vecParallel.begin();
+		itCommand != this->vecParallel.end(); itCommand++)
 	{
 		iCommand* pCurrent = *this->vecSerial.begin();
 
-		if ( !pCurrent->IsDone() )
+		if (!pCurrent->IsDone())
 		{
 			pCurrent->Update(deltaTime);
 		}

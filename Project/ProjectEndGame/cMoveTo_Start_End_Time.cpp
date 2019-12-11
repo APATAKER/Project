@@ -31,7 +31,8 @@ void cMoveTo_Start_End_Time::Update(double deltaTime)
 	glm::vec3 deltaStep = this->m_velocity * (float)deltaTime; 
 
 	// This could be done in the physics engine... 
-	this->m_pTheGO->getPositionXYZ() += deltaStep;
+	//this->m_pTheGO->getPositionXYZ() += deltaStep;
+	this->m_pTheGO->setPositionXYZ(this->m_pTheGO->getPositionXYZ() + deltaStep);
 
 	return;
 }

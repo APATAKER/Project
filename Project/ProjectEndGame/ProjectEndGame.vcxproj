@@ -151,6 +151,7 @@
     <ClCompile Include="cGameObject.cpp" />
     <ClCompile Include="cLight.cpp" />
     <ClCompile Include="cLightImp.cpp" />
+    <ClCompile Include="cLowPassFilter.cpp" />
     <ClCompile Include="cMeshObject.cpp" />
     <ClCompile Include="cModelLoader.cpp" />
     <ClCompile Include="cMoveTo_Start_End_Time.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="cGameObject.h" />
     <ClInclude Include="cLight.h" />
     <ClInclude Include="cLightImp.h" />
+    <ClInclude Include="cLowPassFilter.h" />
     <ClInclude Include="cMesh.h" />
     <ClInclude Include="cMeshObject.h" />
     <ClInclude Include="cModelLoader.h" />

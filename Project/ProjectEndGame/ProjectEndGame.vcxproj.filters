@@ -49,6 +49,9 @@
     <Filter Include="Commands">
       <UniqueIdentifier>{9c622a7e-d2a3-44d0-a7b4-238752271abb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="deltaTime">
+      <UniqueIdentifier>{9171e7f2-b8bd-4ce8-898a-fc15fc769919}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="theMain.cpp">
@@ -149,6 +152,9 @@
     </ClCompile>
     <ClCompile Include="cMoveTo_Start_End_Time.cpp">
       <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="cLowPassFilter.cpp">
+      <Filter>deltaTime</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -268,6 +274,9 @@
     </ClInclude>
     <ClInclude Include="cMoveTo_Start_End_Time.h">
       <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="cLowPassFilter.h">
+      <Filter>deltaTime</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

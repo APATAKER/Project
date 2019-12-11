@@ -52,6 +52,9 @@
 #include "cCommandGroup.h"
 #include "cMoveTo_Start_End_Time.h"
 
+// Adding deltaTime
+#include "cLowPassFilter.h"
+
 cBasicTextureManager* g_pTextureManager = NULL;
 cFlyCamera* g_pFlyCamera = NULL;
 
@@ -1279,29 +1282,32 @@ int main(void)
 	glEnable(GL_DEPTH);			// Write to the depth buffer
 	glEnable(GL_DEPTH_TEST);	// Test with buffer when drawing
 
+	cLowPassFilter avgDeltaTimeObj;
+
+	double lastTime = glfwGetTime();
 
 	iCommand* pScene = new cCommandGroup();
 
-	iObject* pEagleTocommand = pFindObjectByFriendlyName("eagle");
+	//iObject* pEagleTocommand = pFindObjectByFriendlyName("eagle");
 
+	{
+		iCommand* pMoveTo = new cMoveTo_Start_End_Time();
+		pMoveTo->SetGameObject(pEagle);
+		pMoveTo->setName("Move to");
 
-	iCommand* pMoveTo = new cMoveTo_Start_End_Time();
-	pMoveTo->SetGameObject(pEagleTocommand);
-	pMoveTo->setName("Move to");
+		sPair From;		From.numData = glm::vec4(pEagle->getPositionXYZ(), 1.0f);
+		sPair To;		To.numData = glm::vec4(-50.0f, 25.0f, -15.5f, 1.0f);
+		sPair Speed;	Speed.numData.x = 5.0f;		// 1 unit per second
 
-	sPair From;		From.numData = glm::vec4(pEagleTocommand->getPositionXYZ(), 1.0f);
-	sPair To;		To.numData = glm::vec4(-50.0f, 25.0f, -15.5f, 1.0f);
-	sPair Speed;	Speed.numData.x = 5.0f;		// 1 unit per second
+		std::vector<sPair> vecParams;
 
-	std::vector<sPair> vecParams;
+		vecParams.push_back(From);
+		vecParams.push_back(To);
+		vecParams.push_back(Speed);
+		pMoveTo->Init(vecParams);
 
-	vecParams.push_back(From);
-	vecParams.push_back(To);
-	vecParams.push_back(Speed);
-	pMoveTo->Init(vecParams);
-
-	pScene->AddCommandSerial(pMoveTo);
-
+		pScene->AddCommandSerial(pMoveTo);
+	}
 
 
 	cPhysics* pPhsyics = new cPhysics();
@@ -1370,6 +1376,22 @@ int main(void)
 
 	while (!glfwWindowShouldClose(window))
 	{
+		// Get the initial time
+		double currentTime = glfwGetTime();
+
+		// Frame time... (how many seconds since last frame)
+		double deltaTime = currentTime - lastTime;
+		lastTime = currentTime;
+
+		const double SOME_HUGE_TIME = 0.1;	// 100 ms;
+		if (deltaTime > SOME_HUGE_TIME)
+		{
+			deltaTime = SOME_HUGE_TIME;
+		}
+
+		avgDeltaTimeObj.addValue(deltaTime);
+
+		pScene->Update(deltaTime);
 
 		ProcessAsyncKeys(window);
 		ProcessAsyncMouse(window);
@@ -1392,9 +1414,9 @@ int main(void)
 
 		glm::vec3 mainLightPosition = glm::vec3(pMainLight->getPositionX(), pMainLight->getPositionY(), pMainLight->getPositionZ());
 
-		cameraEye.x = pEagle->getPositionXYZ().x;
+		/*cameraEye.x = pEagle->getPositionXYZ().x;
 		cameraEye.y = pEagle->getPositionXYZ().y + 15.0f;
-		cameraEye.z = pEagle->getPositionXYZ().z - 75.0f;
+		cameraEye.z = pEagle->getPositionXYZ().z - 75.0f;*/
 		/*v = glm::lookAt(cameraEye,
 			pEagle->getPositionXYZ(),
 			upVector);*/
@@ -1526,10 +1548,10 @@ int main(void)
 				<< ::g_pFlyCamera->eye.x << ", "
 				<< ::g_pFlyCamera->eye.y << ", "
 				<< ::g_pFlyCamera->eye.z << ", "
-				<< "Velocity is: "
-				<< pTree->getVelocity().x << ", "
-				<< pTree->getVelocity().y << ", "
-				<< pTree->getVelocity().z << ", ";
+				<< "eagle is: "
+				<< pEagle->getPositionXYZ().x << ", "
+				<< pEagle->getPositionXYZ().y << ", "
+				<< pEagle->getPositionXYZ().z << ", ";
 				//<< " total AABBs: " << g_mapAABBs_World.size()
 				//<< "   and is inside AABB: " << pID
 				//<< " which has " << ::g_mapAABBs_World.find(pID)->second->vecTriangles.size() << std::endl;

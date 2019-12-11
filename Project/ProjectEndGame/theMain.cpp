@@ -51,6 +51,9 @@
 // Adding Commands
 #include "cCommandGroup.h"
 #include "cMoveTo_Start_End_Time.h"
+#include "cMove_RelativeEnd_Time.h"
+#include "cRotateRelativeOverTime.h"
+#include "cScaleRelativeToOverTime.h"
 
 // Adding deltaTime
 #include "cLowPassFilter.h"
@@ -1288,14 +1291,14 @@ int main(void)
 
 	iCommand* pScene = new cCommandGroup();
 
-	//iObject* pEagleTocommand = pFindObjectByFriendlyName("eagle");
+	iObject* pEagleTocommand = pFindObjectByFriendlyName("eagle");
 
 	{
 		iCommand* pMoveTo = new cMoveTo_Start_End_Time();
-		pMoveTo->SetGameObject(pEagle);
+		pMoveTo->SetGameObject(pEagleTocommand);
 		pMoveTo->setName("Move to");
 
-		sPair From;		From.numData = glm::vec4(pEagle->getPositionXYZ(), 1.0f);
+		sPair From;		From.numData = glm::vec4(pEagleTocommand->getPositionXYZ(), 1.0f);
 		sPair To;		To.numData = glm::vec4(-50.0f, 25.0f, -15.5f, 1.0f);
 		sPair Speed;	Speed.numData.x = 5.0f;		// 1 unit per second
 
@@ -1309,6 +1312,41 @@ int main(void)
 		pScene->AddCommandSerial(pMoveTo);
 	}
 
+	{
+		iCommand* Scale = new cScaleRelativeToOverTime();
+		Scale->SetGameObject(pEagleTocommand);
+		Scale->setName("Scale to");
+
+		sPair EndScale;		EndScale.numData.x = 2.0f;
+		sPair Time;			Time.numData.x = 5.0f;
+
+		std::vector<sPair> vecParams;
+
+		vecParams.push_back(EndScale);
+		vecParams.push_back(Time);
+		Scale->Init(vecParams);
+
+		pScene->AddCommandSerial(Scale);
+	}
+
+	{
+		iCommand* rotate = new cRotateRelativeOverTime();
+		rotate->SetGameObject(pEagleTocommand);
+		rotate->setName("Rotate to");
+
+		sPair EndOrientation;		EndOrientation.numData.x = 180.0f;
+									EndOrientation.numData.y = 0.0f;
+									EndOrientation.numData.z = 180.0f;
+		sPair Time;			Time.numData.x = 3.0f;
+
+		std::vector<sPair> vecParams;
+
+		vecParams.push_back(EndOrientation);
+		vecParams.push_back(Time);
+		rotate->Init(vecParams);
+
+		pScene->AddCommandSerial(rotate);
+	}
 
 	cPhysics* pPhsyics = new cPhysics();
 

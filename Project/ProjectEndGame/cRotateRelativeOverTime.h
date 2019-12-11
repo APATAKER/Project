@@ -13,7 +13,7 @@ public:
 	// - End rotation (Euler degrees) (vec3)
 	// - Number of seconds to move (x)
 	virtual void Init(std::vector<sPair> vecDetails);
-	virtual void SetGameObject(cGameObject* pGO);
+	virtual void SetGameObject(iObject* pGO);
 	virtual void Update(double deltaTime);
 	virtual bool IsDone(void);
 
@@ -31,7 +31,7 @@ private:
 
 	std::string m_Name;
 
-	cGameObject* m_pTheGO;
+	iObject* m_pTheGO;
 
 	glm::quat m_startOrentation;		// Starting location
 	glm::quat m_endOrientation;			// Ending location

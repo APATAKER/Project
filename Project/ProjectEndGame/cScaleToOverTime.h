@@ -14,7 +14,7 @@ public:
 	// - Number of seconds this will take
 	// Initial scale is set on the 1st Update()
 	virtual void Init(std::vector<sPair> vecDetails);
-	virtual void SetGameObject(cGameObject* pGO);
+	virtual void SetGameObject(iObject* pGO);
 	virtual void Update(double deltaTime);
 	virtual bool IsDone(void);
 
@@ -32,7 +32,7 @@ private:
 
 	std::string m_Name;
 
-	cGameObject* m_pTheGO;
+	iObject* m_pTheGO;
 
 	float m_startScale;
 	float m_endScale;

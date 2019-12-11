@@ -11,7 +11,7 @@ void cScaleRelativeToOverTime::Init(std::vector<sPair> vecDetails)
 	//this->m_
 
 }
-void cScaleRelativeToOverTime::SetGameObject(cGameObject* pGO);
+void cScaleRelativeToOverTime::SetGameObject(iObject* pGO);
 void cScaleRelativeToOverTime::Update(double deltaTime);
 bool cScaleRelativeToOverTime::IsDone(void);
 

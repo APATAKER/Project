@@ -14,7 +14,7 @@ void cScaleRelativeToOverTime::Init(std::vector<sPair> vecDetails)
 	return;
 }
 
-void cScaleRelativeToOverTime::SetGameObject(cGameObject* pGO)
+void cScaleRelativeToOverTime::SetGameObject(iObject* pGO)
 {
 	this->m_pTheGO = pGO;
 	return;
@@ -24,13 +24,14 @@ void cScaleRelativeToOverTime::Update(double deltaTime)
 {
 	if ( ! this->m_UpdateHasBeeCalled )
 	{
-		this->m_startScale = this->m_pTheGO->scale;
+		this->m_startScale = this->m_pTheGO->getScale();
 		this->m_ChangeSpeed = ( this->m_endScale - this->m_startScale ) / this->m_TimeToChange;
 		this->m_UpdateHasBeeCalled = true;
 	}
 
-	this->m_pTheGO->scale += (this->m_ChangeSpeed * (float)deltaTime);
+	//this->m_pTheGO->scale += (this->m_ChangeSpeed * (float)deltaTime);
 
+	this->m_pTheGO->setScale(this->m_pTheGO->getScale() + (this->m_ChangeSpeed * (float)deltaTime));
 	this->m_ElapsedTime += deltaTime;
 
 	return;

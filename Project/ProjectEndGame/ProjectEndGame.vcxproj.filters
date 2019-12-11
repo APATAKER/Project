@@ -156,6 +156,15 @@
     <ClCompile Include="cLowPassFilter.cpp">
       <Filter>deltaTime</Filter>
     </ClCompile>
+    <ClCompile Include="cMove_RelativeEnd_Time.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="cRotateRelativeOverTime.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="cScaleRelativeToOverTime.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cModelLoader.h">
@@ -277,6 +286,15 @@
     </ClInclude>
     <ClInclude Include="cLowPassFilter.h">
       <Filter>deltaTime</Filter>
+    </ClInclude>
+    <ClInclude Include="cMove_RelativeEnd_Time.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="cRotateRelativeOverTime.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="cScaleRelativeToOverTime.h">
+      <Filter>Commands</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

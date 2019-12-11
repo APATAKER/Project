@@ -25,7 +25,7 @@ void cRotateRelativeOverTime::Update(double deltaTime)
 {
 	if ( ! this->m_UpdateHasBeeCalled )
 	{
-		this->m_startOrentation = this->m_pTheGO->getQOrientation();
+		this->m_startOrentation = this->m_pTheGO->getRotationXYZ();
 
 		// https://stackoverflow.com/questions/22157435/difference-between-the-two-quaternions
 		glm::quat invStart = glm::inverse(this->m_startOrentation);
@@ -46,7 +46,7 @@ void cRotateRelativeOverTime::Update(double deltaTime)
 		= glm::slerp( this->m_startOrentation, this->m_endOrientation, 
 					  AmountOfRotationCompleted );
 
-	this->m_pTheGO->setOrientation(qCurrentRotation);
+	this->m_pTheGO->setRotationXYZ(qCurrentRotation);
 
 	
 
@@ -76,7 +76,7 @@ bool cRotateRelativeOverTime::IsDone(void)
 
 
 
-void cRotateRelativeOverTime::SetGameObject(cGameObject* pGO)
+void cRotateRelativeOverTime::SetGameObject(iObject* pGO)
 {
 	this->m_pTheGO = pGO;
 	return;

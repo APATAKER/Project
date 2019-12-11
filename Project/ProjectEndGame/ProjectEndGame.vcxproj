@@ -155,9 +155,12 @@
     <ClCompile Include="cMeshObject.cpp" />
     <ClCompile Include="cModelLoader.cpp" />
     <ClCompile Include="cMoveTo_Start_End_Time.cpp" />
+    <ClCompile Include="cMove_RelativeEnd_Time.cpp" />
     <ClCompile Include="cObjectFactory.cpp" />
     <ClCompile Include="cPhysics.cpp" />
     <ClCompile Include="cPhysics_Ericson.cpp" />
+    <ClCompile Include="cRotateRelativeOverTime.cpp" />
+    <ClCompile Include="cScaleRelativeToOverTime.cpp" />
     <ClCompile Include="cShader.cpp" />
     <ClCompile Include="cShaderManager.cpp" />
     <ClCompile Include="cShooter.cpp" />
@@ -196,8 +199,11 @@
     <ClInclude Include="cMeshObject.h" />
     <ClInclude Include="cModelLoader.h" />
     <ClInclude Include="cMoveTo_Start_End_Time.h" />
+    <ClInclude Include="cMove_RelativeEnd_Time.h" />
     <ClInclude Include="cObjectFactory.h" />
     <ClInclude Include="cPhysics.h" />
+    <ClInclude Include="cRotateRelativeOverTime.h" />
+    <ClInclude Include="cScaleRelativeToOverTime.h" />
     <ClInclude Include="cShaderManager.h" />
     <ClInclude Include="cShooter.h" />
     <ClInclude Include="cSphereObject.h" />

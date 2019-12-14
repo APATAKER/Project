@@ -1023,7 +1023,7 @@ int main(void)
 	//pTheModelLoader->LoadPlyModel("assets/models/Parts_Exposed_to_Asteroids_xyz_n.ply", exposedPartsMesh);
 
 	cMesh mountainRangeMesh;
-	if (!pTheModelLoader->LoadPlyModel("assets/models/Mountain_smaller_range_xyz_n_uv.ply", mountainRangeMesh))
+	if (!pTheModelLoader->LoadPlyModel("assets/models/Mountain_smaller_range_xyz_n_uv_PT.ply", mountainRangeMesh))
 	{
 		std::cout << "Error: couldn't find the mountain range ply." << std::endl;
 	}
@@ -1035,7 +1035,7 @@ int main(void)
 	pTheModelLoader->LoadPlyModel("assets/models/Cube_1_Unit_from_origin_XYZ_uv.ply", cubeMesh);
 
 	cMesh eagleMesh;
-	pTheModelLoader->LoadPlyModel("assets/models/Eagle_xyz_n_uv.ply", eagleMesh);
+	pTheModelLoader->LoadPlyModel("assets/models/Eagle_xyz_n_uv_PT.ply", eagleMesh);
 
 	cMesh sphereMesh;
 	pTheModelLoader->LoadPlyModel("assets/models/Sphere_Radius_1_XYZ_n_uv.ply", sphereMesh);

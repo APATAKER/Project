@@ -52,6 +52,9 @@
     <Filter Include="deltaTime">
       <UniqueIdentifier>{9171e7f2-b8bd-4ce8-898a-fc15fc769919}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Particle">
+      <UniqueIdentifier>{b246aca9-092b-4e70-abe2-de737e60d1e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="theMain.cpp">
@@ -164,6 +167,9 @@
     </ClCompile>
     <ClCompile Include="cScaleRelativeToOverTime.cpp">
       <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="cParticleEmitter.cpp">
+      <Filter>Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -295,6 +301,9 @@
     </ClInclude>
     <ClInclude Include="cScaleRelativeToOverTime.h">
       <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="cParticleEmitter.h">
+      <Filter>Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -58,6 +58,9 @@
 // Adding deltaTime
 #include "cLowPassFilter.h"
 
+//Adding Particles
+#include "cParticleEmitter.h"
+
 cBasicTextureManager* g_pTextureManager = NULL;
 cFlyCamera* g_pFlyCamera = NULL;
 
@@ -1404,6 +1407,33 @@ int main(void)
 	//		g_mapAABBs_World.erase(mapIt->first);
 	//	}
 	//}
+	
+
+
+	cParticleEmitter* cFire1 = new cParticleEmitter();
+	
+	/*cFire1.
+
+	sParSetting.numParticlesPerSecond = 10;
+	sParSetting.minLifeSeconds = 1;
+	sParSetting.maxLifeInSeconds = 10;
+	sParSetting.minVelocity = glm::vec3(1, 1, 1);
+	sParSetting.maxVelocity = glm::vec3(10, 10, 10);
+	sParSetting.particleCreationVolume = cParticleEmitter::sParticleCreationSettings::eCreationVolume::SPHERE;
+	sParSetting.minDeltaRadiusPosition = 1;
+	sParSetting.maxDeltaRadiusPosition = 5;
+	sParSetting.minStartingScale = 1;
+	sParSetting.maxStartingScale = 5;
+	sParSetting.minScaleChangePercentPerSecond = 1;
+	sParSetting.maxScaleChangePercentPerSecond = 5;
+	sParSetting.minRotationalChangePerSecond = glm::quat();
+	sParSetting.maxRotationalChangePerSecond = glm::quat();
+	sParSetting.bFadeOutOverLifetime = true;
+	sParSetting.isImposterFaceCamera = false;
+
+	cFire1->location = (pEagle->getPositionXYZ());
+	cFire1->acceleration = glm::vec3(0.0f, 0.02f, 0.0f);
+	cFire1->Initialize(sParSetting);*/
 
 	pEagle->addTestPoint(glm::vec3(5.0f, 3.0f, 4.0f));
 	pEagle->addTestPoint(glm::vec3(-5.0f, 3.0f, 4.0f));

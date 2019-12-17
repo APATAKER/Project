@@ -93,6 +93,12 @@ void cCommandGroup::AddCommandSerial(iCommand* pCommand)
 void cCommandGroup::AddCommandsParallel(std::vector<iCommand*> vec_pCommands)
 {
 	//TODO
+
+	for (int i = 0; i < vec_pCommands.size(); i++)
+	{
+		iCommand* pCommand = vec_pCommands.at(i);
+		this->vecParallel.push_back(pCommand);
+	}
 	return;
 }
 

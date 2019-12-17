@@ -923,6 +923,14 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 		{
 			::g_vec_pEnvironmentObjects[changeObj]->setPositionXYZ(::g_vec_pEnvironmentObjects[changeObj]->getPositionXYZ() + glm::vec3(0.0f, -10.0f, 0.0f));
 		}
+		if (key == GLFW_KEY_N && action == GLFW_PRESS)
+		{
+			changeObj++;
+			if (changeObj == ::g_vec_pEnvironmentObjects.size())
+			{
+				changeObj = 0;
+			}
+		}
 	}
 
 	if (isCtrlKeyDownByAlone(mods) && isShiftKeyDownByAlone(mods))
@@ -1043,6 +1051,15 @@ int main(void)
 	cMesh sphereMesh;
 	pTheModelLoader->LoadPlyModel("assets/models/Sphere_Radius_1_XYZ_n_uv.ply", sphereMesh);
 
+	cMesh fSphereMesh;
+	pTheModelLoader->LoadPlyModel("assets/models/fireSphere.ply", fSphereMesh);
+
+
+	cMesh campfireMesh;
+	pTheModelLoader->LoadPlyModel("assets/models/campfire_XYZ_N_UV.ply", campfireMesh);
+	
+	
+
 
 	CalcAABBsForMeshModel(mountainRangeMesh);
 
@@ -1082,6 +1099,12 @@ int main(void)
 	sModelDrawInfo treeMeshInfo;
 	pTheVAOManager->LoadModelIntoVAO("tree", treeMesh, treeMeshInfo, shaderProgID);
 
+	sModelDrawInfo fSphereMeshInfo;
+	pTheVAOManager->LoadModelIntoVAO("fSphere", fSphereMesh, fSphereMeshInfo, shaderProgID);
+
+	sModelDrawInfo campfireMeshInfo;
+	pTheVAOManager->LoadModelIntoVAO("campfire", campfireMesh, campfireMeshInfo, shaderProgID);
+
 	//sModelDrawInfo safePartsMeshInfo;
 	//pTheVAOManager->LoadModelIntoVAO("safeParts",
 	//	safePartsMesh,		// Sphere mesh info
@@ -1117,6 +1140,13 @@ int main(void)
 
 	::g_pTextureManager->Create2DTextureFromBMPFile("sandTexture_512.bmp", true);
 
+	::g_pTextureManager->Create2DTextureFromBMPFile("campfireTex.bmp", true);
+	::g_pTextureManager->Create2DTextureFromBMPFile("bark1_512.bmp", true);
+	::g_pTextureManager->Create2DTextureFromBMPFile("bark2.bmp", true);
+	::g_pTextureManager->Create2DTextureFromBMPFile("bark3.bmp", true);
+	
+
+	::g_pTextureManager->Create2DTextureFromBMPFile("fire.bmp", true);
 	::g_pTextureManager->Create2DTextureFromBMPFile("eagle.bmp", true);
 	::g_pTextureManager->Create2DTextureFromBMPFile("tree_texture.bmp", true);
 
@@ -1157,21 +1187,40 @@ int main(void)
 	}
 
 	// Sphere and cube
-	iObject* pSphere = pFactory->CreateObject("sphere");
-	pSphere->setMeshName("sphere");
-	pSphere->setFriendlyName("Sphere#1");	// We use to search 
-	pSphere->setPositionXYZ(glm::vec3(0.0f, 50.0f, 0.0f));
-	pSphere->setRotationXYZ(glm::vec3(0.0f, 0.0f, 0.0f));
-	pSphere->setScale(1.0f);
-	pSphere->setObjectColourRGBA(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-	//pSphere->setDebugColour(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-	pSphere->setVelocity(glm::vec3(0.0f, 0.0f, 0.0f));
-	pSphere->setAccel(glm::vec3(0.0f, 0.0f, 0.0f));
-	pSphere->set_SPHERE_radius(1.0f);
-	pSphere->setInverseMass(1.0f);
-	pSphere->setIsVisible(true);
-	pSphere->setIsWireframe(false);
-	//::g_vec_pGameObjects.push_back(pSphere);
+	
+
+	iObject* pFireSphere = pFactory->CreateObject("sphere");
+	pFireSphere->setMeshName("fSphere");
+	pFireSphere->setFriendlyName("fSphere");	// We use to search 
+	//pFireSphere->setPositionXYZ(glm::vec3(0.0f, 50.0f, 0.0f));
+	pFireSphere->setIsWireframe(true);
+	pFireSphere->setScale(10.0f);
+	pFireSphere->setObjectColourRGBA(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	pFireSphere->setDebugColour(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	pFireSphere->setTexture("fire.bmp", 0);
+	pFireSphere->setTextureRatio(1, 0);
+	pFireSphere->setTransprancyValue(1.0f);
+	pFireSphere->setIsVisible(true);
+
+
+	iObject* pCampFire = pFactory->CreateObject("sphere");
+	pCampFire->setMeshName("campfire");
+	pCampFire->setFriendlyName("campfire");	// We use to search 
+	pCampFire->setPositionXYZ(glm::vec3(260, 60, -40));
+	pCampFire->setRotationXYZ(glm::vec3(0.0f, 0.0f, 0.0f));
+	pCampFire->setScale(1.0f);
+	pCampFire->setObjectColourRGBA(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	//pCampFirerere->setDebugColour(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	pCampFire->setVelocity(glm::vec3(0.0f, 0.0f, 0.0f));
+	pCampFire->setAccel(glm::vec3(0.0f, 0.0f, 0.0f));
+	pCampFire->set_SPHERE_radius(1.0f);
+	pCampFire->setTexture("campfireTex.bmp", 0);
+	pCampFire->setTextureRatio(1, 0);
+	pCampFire->setTransprancyValue(1.0f);
+	pCampFire->setInverseMass(1.0f);
+	pCampFire->setIsVisible(true);
+	pCampFire->setIsWireframe(false);
+	g_vec_pEnvironmentObjects.push_back(pCampFire);
 
 		// "SkyBox"
 	iObject* pSkyBoxSphere = pFactory->CreateObject("mesh");
@@ -1208,24 +1257,89 @@ int main(void)
 	pEagle->setTransprancyValue(1.0f);
 	::g_vec_pGameObjects.push_back(pEagle);
 
-	iObject* pTree = pFactory->CreateObject("mesh");
-	pTree->setMeshName("tree");
-	pTree->setFriendlyName("tree1");	// We use to search 
-	pTree->setPositionXYZ(glm::vec3(100.0f, -20.0f, 320.0f));
-	pTree->setRotationXYZ(glm::quat(glm::vec3(0.0f, 0.0f, 0.0f)));
-	pTree->setScale(1.0f);
-	pTree->setObjectColourRGBA(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-	//pSphere->setDebugColour(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-	pTree->setVelocity(glm::vec3(0.0f, 0.0f, 0.0f));
-	pTree->setAccel(glm::vec3(0.0f, 0.0f, 0.0f));
-	pTree->set_SPHERE_radius(1.0f);
-	pTree->setInverseMass(0.0f);
-	pTree->setIsVisible(true);
-	pTree->setIsWireframe(false);
-	pTree->setTexture("tree_texture.bmp", 0);
-	pTree->setTextureRatio(1, 0);
-	pTree->setTransprancyValue(1.0f);
-	::g_vec_pEnvironmentObjects.push_back(pTree);
+	iObject* pTree1 = pFactory->CreateObject("mesh");
+	pTree1->setMeshName("tree");
+	pTree1->setFriendlyName("tree1");	// We use to search 
+	pTree1->setPositionXYZ(glm::vec3(-70, -40, 520));
+	pTree1->setRotationXYZ(glm::quat(glm::vec3(0.0f, 0.0f, 0.0f)));
+	pTree1->setScale(1.0f);
+	pTree1->setObjectColourRGBA(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	//pSp1here->setDebugColour(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	pTree1->setVelocity(glm::vec3(0.0f, 0.0f, 0.0f));
+	pTree1->setAccel(glm::vec3(0.0f, 0.0f, 0.0f));
+	pTree1->set_SPHERE_radius(1.0f);
+	pTree1->setInverseMass(0.0f);
+	pTree1->setIsVisible(true);
+	pTree1->setIsWireframe(false);
+	pTree1->setTexture("tree_texture.bmp", 0);
+	pTree1->setTexture("bark2.bmp", 1);
+	pTree1->setTextureRatio(0.5, 0);
+	pTree1->setTextureRatio(0.5, 1);
+	pTree1->setTransprancyValue(0.3f);
+	::g_vec_pGameObjects.push_back(pTree1);
+
+	iObject* pTree2 = pFactory->CreateObject("mesh");
+	pTree2->setMeshName("tree");
+	pTree2->setFriendlyName("tree2");	// We use to search 
+	pTree2->setPositionXYZ(glm::vec3(300, -60, 380));
+	pTree2->setRotationXYZ(glm::quat(glm::vec3(0.0f, 0.0f, 0.0f)));
+	pTree2->setScale(1.0f);
+	pTree2->setObjectColourRGBA(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	//pSp2here->setDebugColour(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	pTree2->setVelocity(glm::vec3(0.0f, 0.0f, 0.0f));
+	pTree2->setAccel(glm::vec3(0.0f, 0.0f, 0.0f));
+	pTree2->set_SPHERE_radius(1.0f);
+	pTree2->setInverseMass(0.0f);
+	pTree2->setIsVisible(true);
+	pTree2->setIsWireframe(false);
+	pTree2->setTexture("bark3.bmp", 0);
+	pTree2->setTextureRatio(0.5, 0);
+	pTree2->setTexture("bark2.bmp", 1);
+	pTree2->setTextureRatio(0.5, 1);
+	pTree2->setTransprancyValue(0.5f);
+	::g_vec_pGameObjects.push_back(pTree2);
+
+	iObject* pTree3 = pFactory->CreateObject("mesh");
+	pTree3->setMeshName("tree");
+	pTree3->setFriendlyName("tree3");	// We use to search 
+	pTree3->setPositionXYZ(glm::vec3(400, 60, -80));
+	pTree3->setRotationXYZ(glm::quat(glm::vec3(0.0f, 0.0f, 0.0f)));
+	pTree3->setScale(1.0f);
+	pTree3->setObjectColourRGBA(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	//pSp3here->setDebugColour(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	pTree3->setVelocity(glm::vec3(0.0f, 0.0f, 0.0f));
+	pTree3->setAccel(glm::vec3(0.0f, 0.0f, 0.0f));
+	pTree3->set_SPHERE_radius(1.0f);
+	pTree3->setInverseMass(0.0f);
+	pTree3->setIsVisible(true);
+	pTree3->setIsWireframe(false);
+	pTree3->setTexture("bark1_512.bmp", 0);
+	pTree3->setTextureRatio(0.8, 0);
+	pTree3->setTexture("bark3.bmp", 1);
+	pTree3->setTextureRatio(0.2, 1);
+	pTree3->setTransprancyValue(0.7f);
+	::g_vec_pGameObjects.push_back(pTree3);
+
+	iObject* pTree4 = pFactory->CreateObject("mesh");
+	pTree4->setMeshName("tree");
+	pTree4->setFriendlyName("tree4");	// We use to search 
+	pTree4->setPositionXYZ(glm::vec3(-230, -80, 0));
+	pTree4->setRotationXYZ(glm::quat(glm::vec3(0.0f, 0.0f, 0.0f)));
+	pTree4->setScale(1.0f);
+	pTree4->setObjectColourRGBA(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	//pSp4here->setDebugColour(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	pTree4->setVelocity(glm::vec3(0.0f, 0.0f, 0.0f));
+	pTree4->setAccel(glm::vec3(0.0f, 0.0f, 0.0f));
+	pTree4->set_SPHERE_radius(1.0f);
+	pTree4->setInverseMass(0.0f);
+	pTree4->setIsVisible(true);
+	pTree4->setIsWireframe(false);
+	pTree4->setTexture("bark2.bmp", 0);
+	pTree4->setTextureRatio(0.7, 0);
+	pTree4->setTexture("bark1_512.bmp", 1);
+	pTree4->setTextureRatio(0.3, 1);
+	pTree4->setTransprancyValue(0.9f);
+	::g_vec_pGameObjects.push_back(pTree4);
 
 	iObject* pMountainRange = pFactory->CreateObject("mesh");
 	pMountainRange->setMeshName("mountainRange");
@@ -1241,7 +1355,9 @@ int main(void)
 	pMountainRange->setIsVisible(true);
 	pMountainRange->setIsWireframe(false);
 	pMountainRange->setTexture("StoneTex_1024.bmp", 0);
-	pMountainRange->setTextureRatio(1, 0);  
+	pMountainRange->setTextureRatio(0.7, 0);  
+	pMountainRange->setTexture("grassTexture_512.bmp", 1);
+	pMountainRange->setTextureRatio(0.3, 1);
 	pMountainRange->setTransprancyValue(1.0f);
 	::g_vec_pGameObjects.push_back(pMountainRange);
 
@@ -1412,28 +1528,18 @@ int main(void)
 
 	cParticleEmitter* cFire1 = new cParticleEmitter();
 	
-	/*cFire1.
+	
 
-	sParSetting.numParticlesPerSecond = 10;
-	sParSetting.minLifeSeconds = 1;
-	sParSetting.maxLifeInSeconds = 10;
-	sParSetting.minVelocity = glm::vec3(1, 1, 1);
-	sParSetting.maxVelocity = glm::vec3(10, 10, 10);
-	sParSetting.particleCreationVolume = cParticleEmitter::sParticleCreationSettings::eCreationVolume::SPHERE;
-	sParSetting.minDeltaRadiusPosition = 1;
-	sParSetting.maxDeltaRadiusPosition = 5;
-	sParSetting.minStartingScale = 1;
-	sParSetting.maxStartingScale = 5;
-	sParSetting.minScaleChangePercentPerSecond = 1;
-	sParSetting.maxScaleChangePercentPerSecond = 5;
-	sParSetting.minRotationalChangePerSecond = glm::quat();
-	sParSetting.maxRotationalChangePerSecond = glm::quat();
-	sParSetting.bFadeOutOverLifetime = true;
-	sParSetting.isImposterFaceCamera = false;
-
-	cFire1->location = (pEagle->getPositionXYZ());
+	cFire1->location = (pCampFire->getPositionXYZ());
 	cFire1->acceleration = glm::vec3(0.0f, 0.02f, 0.0f);
-	cFire1->Initialize(sParSetting);*/
+	cFire1->Initialize(glm::vec3(-1.0f, 1.0f, -1.0f),
+		glm::vec3(1.0f, 1.0f, 1.0f),
+		glm::vec3(0.0f, 0.0f, -5.0f),
+		glm::vec3(0.0f, 0.0f, 5.0f),
+		1.0f,
+		10.0f,
+		500,
+		1000);
 
 	pEagle->addTestPoint(glm::vec3(5.0f, 3.0f, 4.0f));
 	pEagle->addTestPoint(glm::vec3(-5.0f, 3.0f, 4.0f));
@@ -1459,6 +1565,26 @@ int main(void)
 
 		avgDeltaTimeObj.addValue(deltaTime);
 
+		cFire1->Step(0.03f);
+		std::vector<cParticle*>vec_cFire1;
+		cFire1->getParticles(vec_cFire1);
+		cFire1->location = (pCampFire->getPositionXYZ());
+
+		for (std::vector<cParticle*>::iterator it = vec_cFire1.begin();
+			it != vec_cFire1.end();
+			it++)
+		{
+			cParticle* curPar = *it;
+			glm::mat4 matModel = glm::mat4(1.0f);
+			pFireSphere->setPositionXYZ(curPar->location);
+			DrawObject(matModel, pFireSphere, shaderProgID, pTheVAOManager);
+		}
+		glm::mat4 matModel = glm::mat4(1.0f);
+		pFireSphere->setPositionXYZ(glm::vec3(0, 50, 0));
+		pFireSphere->setScale(100.f);
+		pFireSphere->setIsWireframe(true);
+		pFireSphere->setDebugColour(glm::vec4(1, 1, 1, 1));
+		DrawObject(matModel, pFireSphere, shaderProgID, pTheVAOManager);
 		pScene->Update(deltaTime);
 
 		ProcessAsyncKeys(window);
@@ -1609,9 +1735,9 @@ int main(void)
 			std::stringstream ssTitle;
 			ssTitle
 				<< "The Tree is at: "
-				<< pTree->getPositionXYZ().x << ", "
-				<< pTree->getPositionXYZ().y << ", "
-				<< pTree->getPositionXYZ().z << ", "
+				<< g_vec_pEnvironmentObjects[changeObj]->getPositionXYZ().x << ", "
+				<< g_vec_pEnvironmentObjects[changeObj]->getPositionXYZ().y << ", "
+				<< g_vec_pEnvironmentObjects[changeObj]->getPositionXYZ().z << ", "
 				<< "camera is: "
 				<< ::g_pFlyCamera->eye.x << ", "
 				<< ::g_pFlyCamera->eye.y << ", "
@@ -1771,21 +1897,18 @@ int main(void)
 		// Loop to draw everything in the scene
 
 
-		// Sorting wrt to the camera eye
+		// Sort
 		for (unsigned int i = 0; i != (::g_vec_pGameObjects.size() - 1); i++)
 		{
-			glm::vec3 objA = ::g_vec_pGameObjects[i]->getPositionXYZ();
-			for (unsigned int j = 0; j != (::g_vec_pGameObjects.size() - 1); j++)
+			for (unsigned int j = 0; j != (::g_vec_pGameObjects.size() - i - 1); j++)
 			{
-				
-				glm::vec3 objB = ::g_vec_pGameObjects[j]->getPositionXYZ();
-				float dis1 = glm::distance(objA, ::g_pFlyCamera->eye);
-				float dis2 = glm::distance(objB, ::g_pFlyCamera->eye);
-				if (dis1 > dis2)
+				glm::vec3 objA = ::g_vec_pGameObjects[j]->getPositionXYZ();
+				glm::vec3 objB = ::g_vec_pGameObjects[j + 1]->getPositionXYZ();
+				if (glm::distance(objA, ::g_pFlyCamera->eye) < glm::distance(objB, ::g_pFlyCamera->eye))
 				{
 					iObject* pTempGO = ::g_vec_pGameObjects[j];
-					::g_vec_pGameObjects[j] = ::g_vec_pGameObjects[i];
-					::g_vec_pGameObjects[i] = pTempGO;
+					::g_vec_pGameObjects[j] = ::g_vec_pGameObjects[j + 1];
+					::g_vec_pGameObjects[j + 1] = pTempGO;
 				}
 			}
 		}

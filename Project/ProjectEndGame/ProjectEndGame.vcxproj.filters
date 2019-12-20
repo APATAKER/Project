@@ -55,6 +55,9 @@
     <Filter Include="Particle">
       <UniqueIdentifier>{b246aca9-092b-4e70-abe2-de737e60d1e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LUA">
+      <UniqueIdentifier>{70a3f1e2-fc6a-4621-8689-e63005683f50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="theMain.cpp">
@@ -150,26 +153,14 @@
     <ClCompile Include="cFlyCamera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
-    <ClCompile Include="cCommandGroup.cpp">
-      <Filter>Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="cMoveTo_Start_End_Time.cpp">
-      <Filter>Commands</Filter>
-    </ClCompile>
     <ClCompile Include="cLowPassFilter.cpp">
       <Filter>deltaTime</Filter>
     </ClCompile>
-    <ClCompile Include="cMove_RelativeEnd_Time.cpp">
-      <Filter>Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="cRotateRelativeOverTime.cpp">
-      <Filter>Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="cScaleRelativeToOverTime.cpp">
-      <Filter>Commands</Filter>
-    </ClCompile>
     <ClCompile Include="cParticleEmitter.cpp">
       <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="cLuaBrain.cpp">
+      <Filter>LUA</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -281,29 +272,14 @@
     <ClInclude Include="cFlyCamera.h">
       <Filter>Camera</Filter>
     </ClInclude>
-    <ClInclude Include="cCommandGroup.h">
-      <Filter>Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="iCommand.h">
-      <Filter>Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="cMoveTo_Start_End_Time.h">
-      <Filter>Commands</Filter>
-    </ClInclude>
     <ClInclude Include="cLowPassFilter.h">
       <Filter>deltaTime</Filter>
     </ClInclude>
-    <ClInclude Include="cMove_RelativeEnd_Time.h">
-      <Filter>Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="cRotateRelativeOverTime.h">
-      <Filter>Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="cScaleRelativeToOverTime.h">
-      <Filter>Commands</Filter>
-    </ClInclude>
     <ClInclude Include="cParticleEmitter.h">
       <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="cLuaBrain.h">
+      <Filter>LUA</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
